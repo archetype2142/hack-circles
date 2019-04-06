@@ -5,4 +5,8 @@ class User < ApplicationRecord
                     :omniauthable
   include DeviseTokenAuth::Concerns::User
   has_many :groups
+
+    def tokens_has_json_column_type?
+      false
+    end
 end
