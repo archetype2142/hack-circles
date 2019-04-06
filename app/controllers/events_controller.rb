@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.where(group_id: params[:group_id])
-    json_response({@events, "abc"})
+    json_response(@events)
   end
 
   # GET /events/1
