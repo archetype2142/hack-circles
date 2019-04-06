@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.where(group_id: params[:group_id])
-    json_response(@events)
+    json_response({@events, "abc"})
   end
 
   # GET /events/1
@@ -70,6 +70,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.permit(:title, :date, :address, :group_id)
+      params.permit(:title, :date, :address, :group_id, :featured_image)
     end
 end

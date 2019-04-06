@@ -7,6 +7,8 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+    @groups.each { |x| update_attributes(s3: x.featured_image.service_url) if x.featured_image.attached? }
+    json_response(@groups)
   end
 
   # GET /groups/1
@@ -72,6 +74,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.permit(:name, :description)
+      params.permit(:name, :description, :featured_image)
     end
 end
+
