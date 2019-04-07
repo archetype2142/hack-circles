@@ -6,11 +6,13 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @email = request.headers["Uid"].inspect
-    if @email == ""
-      @groups = Group.all
+    puts "This is the email #{@email}"
+    if request.headers.include? "uid"
+      @groups = User.where(uid: request.headers["uid"]).first.groups
+      # puts "USER! #{request.headers["uid"].inspect}"
     else
-      @groups = User.where(uid: @email).groups
+      @groups = Group.all
+      # puts "USER! #{request.headers["uid"].inspect}"
     end
     # @groups.each { |x| update_attributes(s3: x.featured_image.service_url) if x.featured_image.attached? }
     render json: @groups, include: ['categories']
