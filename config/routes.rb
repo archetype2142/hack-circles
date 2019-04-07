@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/categories', to: 'category#index'
   resources :groups do 
   	resources :events
+  	resources :posts
   	resources :categories
   end
   root 'groups#index', as: :authenticated_root

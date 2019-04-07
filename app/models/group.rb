@@ -2,6 +2,7 @@ class Group < ApplicationRecord
   belongs_to :user
   has_many :events
   has_many :categories
+  has_many :posts
   has_one_attached :featured_image
 
   validates :name, presence: true
