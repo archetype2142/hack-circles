@@ -40,6 +40,7 @@ class GroupsController < ApplicationController
 
     information = request.raw_post
     data_parsed = JSON.parse(information)
+    # puts information
     categories = data_parsed['categories']
 
     # content = JSON.parse(request.body.read.force_encoding("UTF-8"))
