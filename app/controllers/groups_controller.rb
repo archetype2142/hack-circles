@@ -49,13 +49,13 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
-        format.json { render :show, status: :created, location: @group }
         
         if categories
           categories.each do |category|
             Category.create(name: category, group_id: Group.last.id)
           end
         end
+        format.json { render json: @group, include: ['categories'] }
       else
         format.html { render :new }
         format.json { render json: @group.errors, status: :unprocessable_entity }
