@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @email = request.headers["Uid"].inspect
-    if @email != ""
+    if @email == ""
       @groups = Group.all
     else
       @groups = User.where(uid: @email).groups
@@ -40,6 +40,8 @@ class GroupsController < ApplicationController
     information = request.raw_post
     data_parsed = JSON.parse(information)
     categories = data_parsed['categories']
+
+    content = JSON.parse(request.body.read.force_encoding("UTF-8"))
 
     respond_to do |format|
       if @group.save
