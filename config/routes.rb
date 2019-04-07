@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
-  devise_for :users, :controllers => { registrations: 'registrations' }
   get '/categories', to: 'category#index'
-
   resources :groups do 
   	resources :events
   	resources :posts
