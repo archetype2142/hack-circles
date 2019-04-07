@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  belongs_to :group, dependent: :destroy
+  belongs_to :group
   has_one_attached :featured_image
   validates :title, presence: true
   validates :description, presence: true

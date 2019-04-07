@@ -38,19 +38,23 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.update_attributes(user: current_user)
 
-    information = request.raw_post
+    information = request.body.read
     data_parsed = JSON.parse(information)
-    # puts information
-    categories = data_parsed['categories']
-
+    if data_parsed['categories'] 
+      categories = data_parsed['categories']
+    end
+    puts "here: #{categories}"
     # content = JSON.parse(request.body.read.force_encoding("UTF-8"))
 
     respond_to do |format|
       if @group.save
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
-        categories.each do |category|
-          Category.create(name: category, group_id: Group.last.id)
+        
+        if categories
+          categories.each do |category|
+            Category.create(name: category, group_id: Group.last.id)
+          end
         end
       else
         format.html { render :new }
