@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Group.find(params[:group_id]).posts
   end
 
   # GET /posts/1
