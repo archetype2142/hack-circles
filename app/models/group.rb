@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   has_many :events
   has_many :categories
   has_one_attached :featured_image
+
   validates :name, presence: true
   validates :description, presence: true
 
