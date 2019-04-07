@@ -21,7 +21,7 @@ module HackBack
           resource '*', 
            :headers => :any, 
            :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-           :methods => [:get, :post, :patch, :delete, :options]
+           :methods => [:get, :post, :patch, :put, :delete, :options]
    		end
   	end
   end
