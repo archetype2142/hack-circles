@@ -42,9 +42,10 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
+      @post.update(post_params)
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        json_response(@post)
+        format.json { json_response(@post) }
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
