@@ -1,19 +1,25 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  # allow to see all groups without authentication
   skip_before_action :authenticate_user!, only: [:show, :index]
-
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
-    @groups.each { |x| update_attributes(s3: x.featured_image.service_url) if x.featured_image.attached? }
-    json_response(@groups)
+    @email = request.headers["Uid"].inspect
+    if @email != ""
+      @groups = Group.all
+    else
+      @groups = User.where(uid: @email).groups
+    end
+    # @groups.each { |x| update_attributes(s3: x.featured_image.service_url) if x.featured_image.attached? }
+    render json: @groups, include: ['categories']
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
+    render json: @group, include: ['categories']
   end
 
   # GET /groups/new
@@ -30,10 +36,18 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.update_attributes(user: current_user)
+
+    information = request.raw_post
+    data_parsed = JSON.parse(information)
+    categories = data_parsed['categories']
+
     respond_to do |format|
       if @group.save
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
+        categories.each do |category|
+          Category.create(name: category, group_id: Group.last.id)
+        end
       else
         format.html { render :new }
         format.json { render json: @group.errors, status: :unprocessable_entity }
@@ -74,7 +88,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.permit(:name, :description, :featured_image)
+      params.permit(:name, :description, :featured_image, :categories => [])
     end
 end
 
