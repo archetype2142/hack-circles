@@ -1,24 +1,14 @@
-# README
+# HackCircles
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Backend app for [WAWCODE](http://www.wawcode.pl/) hackathon.
+Platform to allow students to create groups and subscribe to interest categories, get informed about updates via messenger bot
+Frontend -> https://aqueous-dusk-29050.herokuapp.com/#/
+- Production ready
+- REST API
 
-Things you may want to cover:
+## Groups
+Create groups called circles for university interest groups, add posts, add events, facebook graph api integration, google calendar integration.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Steps
+- bundle install
+- rails s
