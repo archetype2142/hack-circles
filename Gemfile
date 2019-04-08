@@ -32,7 +32,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-gem "paperclip", "~> 5.0.0.beta1"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem "aws-sdk-s3", require: false
